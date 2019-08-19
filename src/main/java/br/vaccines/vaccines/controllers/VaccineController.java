@@ -23,9 +23,12 @@ public class VaccineController {
 	@RequestMapping(value="/addVaccine", method=RequestMethod.POST)
 	public String form(Vaccine vaccine) {
 		
-		vaccineRepository.save(vaccine);
-		
-		return "redirect:/addVaccine";
+		try{
+			vaccineRepository.save(vaccine);
+			return "redirect:/vaccines";
+		} catch (Exception e) {			
+			return "redirect:/addVaccine";
+		}
 	}
 	
 	@RequestMapping("/vaccines")
@@ -34,6 +37,13 @@ public class VaccineController {
 		Iterable <Vaccine> vaccines = vaccineRepository.findAll();
 		modelAndView.addObject("vaccines", vaccines);
 		return modelAndView;
+	}
+	
+	@RequestMapping("/deleteVaccine")
+	public String deleteVaccine(long id) {
+		Vaccine vaccine = vaccineRepository.findById(id);
+		vaccineRepository.delete(vaccine);
+		return "redirect:/vaccines";
 	}
 	
 }

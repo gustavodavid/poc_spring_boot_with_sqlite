@@ -30,6 +30,7 @@
 			<tr>
 				<th>Id</th>
 				<th>Name</th>
+				<th>Excluir</th>
 			</tr>
 		</thead>
 
@@ -37,6 +38,7 @@
 			<tr th:each="vaccine : ${vaccines}">
 				<td><span th:text="${vaccine.id}"> </span></td>
 				<td><span th:text="${vaccine.name}"> </span></td>
+				<td><a class="waves-effect waves-light btn-small" th:href="${(#mvc.url('VC#deleteVaccine').arg(0, vaccine.id)).build()}"><i class="material-icons left">delete</i></a></td>
 			</tr>
 		</tbody>
 	</table>
